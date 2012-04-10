@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+
+var HookRenfe = require('../lib/hookRenfe').HookRenfe;
+
+var hookRenfe = new HookRenfe({ 
+  name: 'the-hookRenfe'
+});
+
+hookRenfe.start();
