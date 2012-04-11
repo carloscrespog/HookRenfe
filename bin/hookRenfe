@@ -88,7 +88,10 @@ hookRenfe.on('*::travel',function(data){
                 }
                 if(m==1){
                   precio.fareType=($(this).text());
-                 
+                  
+                  precio.fareType=(precio.fareType).replace(/[�]+/,"ñ");
+                                   
+
                 }
                 if(m==2){
                   precio.price=($(this).text());
