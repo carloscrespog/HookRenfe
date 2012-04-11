@@ -17,20 +17,20 @@ var ciudades = {
 hookRenfe.on('*::travel',function(data){
 	var renfeQuery = generateQuery(data.origen,data.destino,data.year,data.month,data.day);
     var trenJson = {
-      "tipo":null,
-      "ruta":{
-        "origen":null,
-        "destino":null
+      "train":null,
+      "route":{
+        "origin":null,
+        "destination":null
       },
-      "tiempo":{
-        "salida":null,
-        "llegada":null,
-        "duracion":null
+      "schedule":{
+        "departure":null,
+        "arrival":null,
+        "duration":null
       },
-      "precios":null
+      "fares":null
     },
-    precio={"tipo":null,
-        "cantidad":null
+    precio={"fareType":null,
+        "price":null
     };
       
 
@@ -41,39 +41,39 @@ hookRenfe.on('*::travel',function(data){
       'http://code.jquery.com/jquery-1.5.min.js'
        ],
         function(errors, window) {
-          //eliminar
-          trenJson.ruta.origen=data.origen;
-          trenJson.ruta.destino=data.destino;
-           console.log("Working");
+          
+          trenJson.route.origin=data.origen;
+          trenJson.route.destination=data.destino;
+           //console.log("Working");
            var $ = window.$;
            $("table#row > tbody > tr").each(function(){
             var children = $(this).children("td");// importante el $(this)
             var tren =$(children[0]).text().trim();
             tren=tren.replace(/[0-9]+/,"");
             tren=tren.trim();
-            console.log("Tren: "+tren+" ");
-            trenJson.tipo=tren;
+            //console.log("Tren: "+tren+" ");
+            trenJson.train=tren;
 
             var depTime=$(children[1]).text().trim();
             tren=tren.concat(" ("+depTime+") ");
-            console.log("Hora de salida: "+depTime);
-            trenJson.tiempo.salida=depTime;
+            //console.log("Hora de departure: "+depTime);
+            trenJson.schedule.departure=depTime;
 
             var arrTime=$(children[2]).text().trim();
             tren=tren.concat(" ("+arrTime+")");
-            console.log("Hora de llegada: "+arrTime);
-            trenJson.tiempo.llegada=arrTime;
+            //console.log("Hora de arrival: "+arrTime);
+            trenJson.schedule.arrival=arrTime;
 
             var duration=$(children[3]).text().trim();
             tren=tren.concat(" in "+duration+" ");
-            console.log("Duracion: "+duration);
-            trenJson.tiempo.duracion=duration;
+            //console.log("Duration: "+duration);
+            trenJson.schedule.duration=duration;
 
-            //tbody casca!!!
+            
             var n=-1;
             var ntr=$(children[4]).find("table tr#divcont").size();
-            tren=tren.concat("Precios: ");
-            trenJson.precios=new Array();
+            tren=tren.concat("fares: ");
+            trenJson.fares=new Array();
             $(children[4]).find("table tr#divcont").each(function(){
               
               var m=0;
@@ -81,18 +81,18 @@ hookRenfe.on('*::travel',function(data){
               n++;
               var ntd=$(this).find("td").size();
               $(this).find("td").each(function(index){
-                console.log("tr: "+n+" de "+ ntr+" / td: "+m +" de " + ntd);
-                console.log($(this).text());
+                //console.log("tr: "+n+" de "+ ntr+" / td: "+m +" de " + ntd);
+                //console.log($(this).text());
                 if(m==1 || m==2){
                   tren=tren.concat($(this).text()+" ");
                 }
                 if(m==1){
-                  precio.tipo=($(this).text());
+                  precio.fareType=($(this).text());
                  
                 }
                 if(m==2){
-                  precio.cantidad=($(this).text());
-                  trenJson.precios[n]=precio;
+                  precio.price=($(this).text());
+                  trenJson.fares[n]=precio;
 
                 }
                 m++;
@@ -105,8 +105,8 @@ hookRenfe.on('*::travel',function(data){
             trenesJson[i]=trenJson;
             i++;
             
-            console.log(JSON.stringify(trenesJson));
-            console.log("Tren scrapped\n\n\n\n\n");
+            //console.log(JSON.stringify(trenesJson));
+            //console.log("Tren scrapped\n\n\n\n\n");
                   
     });
       hookRenfe.emit('hookRenfe::query', {"renfeQuery": renfeQuery,"mresponse":trenes,"jsonResponse":trenesJson});
