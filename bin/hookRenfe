@@ -11,7 +11,10 @@ var ciudades = {
       "Madrid":"MADRI",
       "Cuenca":"CUENC",
       "Guadalajara":"GUADA",
-      "Valencia":"VALEN"
+      "Valencia":"VALEN",
+      "Manzanares":"50100",
+      "Gijón":"GIJON",
+      "Barcelona":"BARCE"
    };
 
 hookRenfe.on('*::travel',function(data){
