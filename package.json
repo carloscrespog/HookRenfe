@@ -1,11 +1,11 @@
 {
-  "author": "Marak Squires <marak.squires@gmail.com>",
+  "author": "Carlos Crespo<carlos.crespog@gmail.com>",
   "name": "hook.io-hookRenfe",
-  "description": "a simple hook.io hook for creating hook.io hooks",
+  "description": "A hook for handling renfe's querys",
   "version": "0.1.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/hookio/hookRenfe.git"
+    "url": "git://github.com/carloscrespog/HookRenfe"
   },
   "bin": {
      "hookio-hookRenfe": "./bin/hookRenfe"

@@ -1,0 +1,1 @@
+hook.emit('foo::travel',{"origen":"Madrid","destino":"Cuenca","year":"2012","month":"06","day":"12"})
